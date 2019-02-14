@@ -1,22 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 
-const header = () => (
+const header = ({columns}) => (
     <div className="table__header">
-        <div className="table__th">
-            Name
-        </div>
-        <div className="table__th">
-            Height
-        </div>
-        <div className="table__th">
-            Mass
-        </div>
-        <div className="table__th">
-            Birth year
-        </div>
+        {
+            columns.map(head => (
+                <div
+                    key={head.id}
+                    className="table__th"
+                >
+                    {head.text}
+                </div>
+            ))
+        }
     </div>
 
 );
+
+header.propTypes = {
+    columns: PropTypes.array.isRequired,
+};
+
+header.defaultProps = {
+    columns: [],
+};
 
 export default header;

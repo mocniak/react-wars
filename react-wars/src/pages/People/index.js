@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {APP_STATES} from './config';
+import {APP_STATES, TABLE_COLUMNS} from './config';
 import Button from '../../components/Button';
 import WelcomeInfo from '../../components/WelcomeInfo';
 import Table from '../../components/Table';
@@ -8,21 +8,34 @@ import Footer from '../../components/Footer';
 class PeoplePage extends Component {
     state = {
         appState: APP_STATES.INIT,
+        people: [],
     };
 
     loadData = () => {
         this.setState({
             appState: APP_STATES.LOADING
         });
-        setTimeout(() => {
-            this.setState({
-                appState: APP_STATES.RESULTS
+        fetch('https://swapi.co/api/people')
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error("Error");
+                }
             })
-        }, 2000);
+            .then(response => {
+                this.setState({
+                    people: response.results,
+                    appState: APP_STATES.RESULTS,
+                });
+            })
+            .catch(error => {
+                this.setState({appState: APP_STATES.ERROR});
+            })
     };
 
     render() {
-        const {appState} = this.state;
+        const {appState, people} = this.state;
         return (
             <div className="container">
                 <WelcomeInfo header="Star Wars" paragraph="long time ago"/>
@@ -34,7 +47,10 @@ class PeoplePage extends Component {
                     appState === APP_STATES.LOADING && <p>Loading...</p>
                 }
                 {
-                    appState === APP_STATES.RESULTS && <Table/>
+                    appState === APP_STATES.ERROR && <p>Something went wrong.</p>
+                }
+                {
+                    appState === APP_STATES.RESULTS && <Table columns={TABLE_COLUMNS} items={people}/>
                 }
                 <Footer/>
             </div>

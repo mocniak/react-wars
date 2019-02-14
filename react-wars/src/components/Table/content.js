@@ -1,23 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 
-const content = () => (
+const content = ({items, columns}) => (
     <div className="table__content">
-        <div className="table__tr">
-            <div className="table__td">
-                Luke Skywalker
-            </div>
-            <div className="table__td">
-                172
-            </div>
-            <div className="table__td">
-                77
-            </div>
-            <div className="table__td">
-                19BBY
-            </div>
-        </div>
+        {
+            items.map((item, index) => (
+                <div className="table__tr" key={index}>
+                    {
+                        columns.map(
+                            column => (
+                                <div className="table__td" key={column.id}>
+                                    {item[column.field]}
+                                </div>
+                            )
+                        )
+                    }
+                </div>
+            ))
+        }
     </div>
 );
+
+content.propTypes = {
+    items: PropTypes.array.isRequired,
+    columns: PropTypes.array.isRequired,
+};
+
+content.defaultProps = {
+    items: [],
+    columns: [],
+};
 
 export default content;
