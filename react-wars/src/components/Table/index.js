@@ -1,19 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types'
+import Header from './header';
+import Content from './content';
 import './style.scss';
 
-const table = () => (
+const table = ({
+    items,
+               }) => (
     <div className="table">
-        <div className="table__header"></div>
-        <div className="table__content"></div>
+        <Header/>
+        <Content/>
     </div>
 );
 
-footer.propTypes = {
-    paragraph: PropTypes.string,
+table.propTypes = {
+    items: PropTypes.array,
 };
 
-footer.defaultProps = {
-    paragraph: "Default footer",
+table.defaultProps = {
+    items: [],
 };
 export default table;
