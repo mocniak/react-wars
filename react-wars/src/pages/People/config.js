@@ -9,21 +9,32 @@ export const TABLE_COLUMNS = [
     {
         id: 'name',
         text: 'Name',
-        field: 'name'
+        field: 'name',
+        type: 'text',
     },
     {
         id: 'height',
         text: 'height',
         field: 'height',
+        type: 'text',
     },
     {
         id: 'mass',
         text: 'Mass',
         field: 'mass',
+        type: 'text',
     },
     {
         id: 'birth_year',
         text: 'Birth Year',
         field: 'birth_year',
+        type: 'text',
+    },
+    {
+        id: 'details_button',
+        text: 'Actions',
+        type: 'button',
+        link: '/people',
+        buttonText: 'Show details',
     },
 ];

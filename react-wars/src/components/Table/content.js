@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
+import {Link} from 'react-router-dom';
 
 const content = ({items, columns}) => (
     <div className="table__content">
@@ -10,7 +11,13 @@ const content = ({items, columns}) => (
                         columns.map(
                             column => (
                                 <div className="table__td" key={column.id}>
-                                    {item[column.field]}
+                                    {column.type === 'text'
+                                        ? item[column.field]
+                                        : (<Link
+                                            to={column.link + "/" + (1 + index)}
+                                        >
+                                            {column.buttonText}
+                                        </Link>)}
                                 </div>
                             )
                         )
