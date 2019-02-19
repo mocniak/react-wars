@@ -15,7 +15,7 @@ class Details extends Component {
     }
 
     loadPersonData = () => {
-        fetch('https://swapi.co/api/people/' + this.state.personId)
+        fetch('http://localhost:8000/people/' + this.state.personId)
             .then(response => {
                 if (response.ok) {
                     return response.json();

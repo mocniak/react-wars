@@ -15,7 +15,7 @@ class PeoplePage extends Component {
         this.setState({
             appState: APP_STATES.LOADING
         });
-        fetch('https://swapi.co/api/people')
+        fetch('http://localhost:8000/people')
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -25,7 +25,7 @@ class PeoplePage extends Component {
             })
             .then(response => {
                 this.setState({
-                    people: response.results,
+                    people: response,
                     appState: APP_STATES.RESULTS,
                 });
             })

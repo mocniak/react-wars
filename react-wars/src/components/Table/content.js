@@ -14,7 +14,7 @@ const content = ({items, columns}) => (
                                     {column.type === 'text'
                                         ? item[column.field]
                                         : (<Link
-                                            to={column.link + "/" + (1 + index)}
+                                            to={column.link + "/" + item.id}
                                         >
                                             {column.buttonText}
                                         </Link>)}
