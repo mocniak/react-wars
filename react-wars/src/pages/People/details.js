@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import WelcomeInfo from '../../components/WelcomeInfo';
+import Button from '../../components/Button'
 import {APP_STATES} from './config';
 
 class Details extends Component {
@@ -36,6 +37,23 @@ class Details extends Component {
             });
     };
 
+    removePerson = () => {
+        fetch('http://localhost:8000/people/' + this.state.personId, {method: 'DELETE'})
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error("Not deleted!");
+                }
+            })
+            .then(response => {
+                this.props.history.push('/people');
+            })
+            .catch(error => {
+                this.setState({appState: APP_STATES.ERROR});
+            })
+    };
+
     render() {
         const {appState, personDetails} = this.state;
         return (
@@ -56,6 +74,7 @@ class Details extends Component {
                         <p>Hair: {personDetails.hair_color}</p>
                         <p>Skin: {personDetails.skin_color}</p>
                         <p>Eyes: {personDetails.eye_color}</p>
+                        <Button text="Delete" action={this.removePerson}/>
                     </React.Fragment>
                 }
             </div>
